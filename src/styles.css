@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Brand tokens: retune the whole app from here. */
+  --color-ink-950: #070d18;
+  --color-ink-900: #0b1320;
+  --color-ink-800: #111c2e;
+  --color-ink-700: #1a273a;
+  --color-ink-600: #2d3e56;
+  --color-mute: #8a95a5;
+  --color-brand-400: #6bb8ee;
+  --color-brand-500: #45a2e5;
+  --color-brand-600: #2f86c8;
+  --color-glow: #00d4ff;
+
+  --animate-ring: ring 1.6s ease-out infinite;
+  --animate-rise: rise 0.28s ease-out both;
+  @keyframes ring {
+    0% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0.45); }
+    70% { box-shadow: 0 0 0 18px rgb(239 68 68 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html, body { background: var(--color-ink-900); color: #e6edf6; -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 2px solid var(--color-brand-400); outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: rgb(69 162 229 / 0.35); }
+  * { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
+  @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply bg-brand-500 text-ink-950 hover:bg-brand-400; }
+  .btn-ghost { @apply border border-ink-600 bg-ink-800 text-slate-100 hover:border-brand-500; }
+  .icon-btn { @apply inline-flex size-10 shrink-0 items-center justify-center rounded-full text-mute transition hover:bg-ink-700 hover:text-white disabled:opacity-40; }
+  .chip { @apply rounded-full border border-ink-600 bg-ink-800 px-3.5 py-1.5 text-sm text-slate-200 transition hover:border-brand-500 hover:bg-ink-700 active:scale-95; }
+  .card { @apply rounded-2xl border border-ink-600 bg-ink-800 p-4; }
+  .prose-chat strong { @apply font-semibold text-white; }
+  .prose-chat code { @apply rounded bg-ink-950 px-1 py-0.5 text-[0.85em] text-brand-400; }
+  .prose-chat ul { @apply my-1 list-disc pl-5; }
+  .safe-b { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+  .safe-t { padding-top: env(safe-area-inset-top); }
+}

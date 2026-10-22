@@ -1,0 +1,49 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "netlaunch",
+	"main": "worker/entry.ts",
+	"compatibility_date": "2025-09-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// Static app (built by Vite) is served for free; the Worker only runs for /api/*, auth, and published sites (/<name>/).
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "netlaunch",
+			"database_id": "3d57a011-d776-4cd3-a526-5f2ef42f7c0b",
+			"migrations_dir": "migrations"
+		},
+		{
+			"binding": "netlaunch",
+			"database_name": "netlaunch",
+			"database_id": "3d57a011-d776-4cd3-a526-5f2ef42f7c0b"
+		}
+	],
+	// Remove this block on the very first deploy if you want to test on *.workers.dev before attaching your domain.
+	"routes": [
+		{
+			"pattern": "netpins.xyz",
+			"custom_domain": true
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	// Non-secret configuration. Secrets are set with `wrangler secret put` (see README).
+	"vars": {
+    "PUBLIC_ORIGIN": "https://netpins.xyz",
+    "STORAGE_DRIVER": "s3",
+    "S3_BUCKET": "REPLACE_WITH_YOUR_BUCKET_NAME",
+    "AWS_REGION": "us-east-1",
+    "AWS_ROLE_ARN": "REPLACE_WITH_ROLE_ARN_OR_DELETE_THIS_LINE_TO_USE_ACCESS_KEYS",
+    "GROQ_MODEL": "openai/gpt-oss-120b",
+    "GROQ_STT_MODEL": "whisper-large-v3-turbo"
+  }
+	// To use Cloudflare R2 instead of S3 (truly free, no AWS): set STORAGE_DRIVER to "r2" above and add:
+	// "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "netlaunch-sites" }]
+}
