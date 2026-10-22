@@ -40,6 +40,11 @@ export function validateHtml(html: string, maxBytes: number): { ok: boolean; err
   if (count(html, /<style\b/gi) !== count(html, /<\/style>/gi)) errors.push('Unbalanced <style> tags.');
   if (count(html, /<script\b/gi) !== count(html, /<\/script>/gi)) errors.push('Unbalanced <script> tags.');
   if (/lorem ipsum/i.test(html)) errors.push('Contains placeholder lorem ipsum text.');
+  // Content slop that makes a page look unfinished. Kept narrow to avoid false repairs.
+  if (/\byour (?:tagline|headline|slogan|text) here\b|\[placeholder\]|\binsert (?:your|a) [^<]{0,30}?here\b|\breplace this text\b|\bfeature [123]\b/i.test(html)) {
+    errors.push('Contains placeholder copy ("Feature 1", "your text here", etc.) instead of real content.');
+  }
+  if (/<section\b[^>]*>\s*<\/section>/i.test(html)) errors.push('Contains an empty <section>.');
   return { ok: errors.length === 0, errors };
 }
 

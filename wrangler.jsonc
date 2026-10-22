@@ -38,9 +38,9 @@
 	"vars": {
     "PUBLIC_ORIGIN": "https://netpins.xyz",
     "STORAGE_DRIVER": "s3",
-    "S3_BUCKET": "REPLACE_WITH_YOUR_BUCKET_NAME",
+    "S3_BUCKET": "netlaunch-sites-ada48216",
     "AWS_REGION": "us-east-1",
-    "AWS_ROLE_ARN": "REPLACE_WITH_ROLE_ARN_OR_DELETE_THIS_LINE_TO_USE_ACCESS_KEYS",
+    "AWS_ROLE_ARN": "arn:aws:iam::186911868476:role/netlaunch-worker",
     "GROQ_MODEL": "openai/gpt-oss-120b",
     "GROQ_STT_MODEL": "whisper-large-v3-turbo"
   }

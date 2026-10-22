@@ -11,12 +11,12 @@ import { composerView, headerView, messagesView, progressView, sidebarView, sign
 const app = $('#app')!;
 app.innerHTML = `
   <div class="flex h-full">
-    <div id="scrim" class="fixed inset-0 z-30 hidden bg-black/60 md:hidden" data-act="close-sidebar"></div>
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 -translate-x-full border-r border-ink-700 bg-ink-900 transition-transform duration-200 md:static md:translate-x-0" aria-label="Sidebar"></aside>
+    <div id="scrim" class="fixed inset-0 z-30 hidden bg-ink/30 md:hidden" data-act="close-sidebar"></div>
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 -translate-x-full border-r border-line bg-canvas transition-transform duration-200 md:static md:translate-x-0" aria-label="Sidebar"></aside>
     <div class="flex min-w-0 flex-1 flex-col">
       <div id="header"></div>
       <main id="messages" class="min-h-0 flex-1 overflow-y-auto" tabindex="-1" aria-live="polite" aria-label="Conversation"></main>
-      <footer id="composer" class="border-t border-ink-700 bg-ink-900 px-3 pt-3 safe-b"></footer>
+      <footer id="composer" class="border-t border-line bg-canvas px-3 pt-3 safe-b"></footer>
     </div>
   </div>
   <div id="modal"></div>
@@ -52,7 +52,7 @@ function autosize(t: HTMLTextAreaElement) { t.style.height = 'auto'; t.style.hei
 /* ---------------------------------- toasts ---------------------------------- */
 function toast(message: string, kind: 'info' | 'error' | 'ok' = 'info') {
   const t = document.createElement('div');
-  t.className = `pointer-events-auto max-w-md animate-rise rounded-xl px-4 py-2.5 text-sm shadow-lg ring-1 ${kind === 'error' ? 'bg-red-950 text-red-100 ring-red-500/40' : kind === 'ok' ? 'bg-emerald-950 text-emerald-100 ring-emerald-500/40' : 'bg-ink-700 text-white ring-ink-600'}`;
+  t.className = `pointer-events-auto max-w-md animate-rise rounded-xl px-4 py-2.5 text-sm shadow-lg ring-1 ${kind === 'error' ? 'bg-red-50 text-red-700 ring-red-200' : kind === 'ok' ? 'bg-emerald-50 text-emerald-700 ring-emerald-200' : 'bg-ink text-canvas ring-ink/10'}`;
   t.textContent = message;
   q('toasts').append(t);
   setTimeout(() => t.remove(), kind === 'error' ? 7000 : 3500);
@@ -222,7 +222,7 @@ function setSlugStatus(status: typeof state.slug.status, reason = '') {
   state.slug.status = status; state.slug.reason = reason;
   const s = $('[data-slug-status]'); const b = $<HTMLButtonElement>('[data-slug-btn]');
   if (s) {
-    s.className = `mt-2 min-h-5 text-sm ${status === 'ok' ? 'text-emerald-400' : status === 'bad' ? 'text-red-300' : 'text-mute'}`;
+    s.className = `mt-2 min-h-5 text-sm ${status === 'ok' ? 'text-emerald-600' : status === 'bad' ? 'text-red-600' : 'text-mute'}`;
     s.textContent = status === 'checking' ? 'Checking…' : status === 'ok' ? `✓ ${reason}` : reason;
   }
   if (b) b.disabled = status !== 'ok';

@@ -48,6 +48,11 @@ test('html extraction/validation', () => {
   assert.equal(validateHtml(GOOD.replace('</style>', ''), 10_000).ok, false);
   assert.equal(validateHtml(GOOD, 50).ok, false);
   assert.equal(validateHtml(GOOD.replace('<h1>Hi</h1>', '<p>lorem ipsum</p>'), 10_000).ok, false);
+  assert.equal(validateHtml(GOOD.replace('<h1>Hi</h1>', '<h1>Feature 1</h1>'), 10_000).ok, false);
+  assert.equal(validateHtml(GOOD.replace('<h1>Hi</h1>', '<h1>Your tagline here</h1>'), 10_000).ok, false);
+  assert.equal(validateHtml(GOOD.replace('<h1>Hi</h1>', '<section></section><h1>Hi</h1>'), 10_000).ok, false);
+  // A real form field must not be mistaken for placeholder copy.
+  assert.equal(validateHtml(GOOD.replace('<h1>Hi</h1>', '<h1>Order</h1><input placeholder="Your name">'), 10_000).ok, true);
 });
 test('sanitize + mobile', () => {
   assert.equal(sanitizeHtml('<head><base href="//evil/"><meta http-equiv="refresh" content="0;url=//x"></head>'), '<head></head>');

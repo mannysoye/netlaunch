@@ -5,12 +5,12 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import sharp from 'sharp';
 
-const BG = { r: 11, g: 19, b: 32, alpha: 1 }; // #0b1320
+const BG = { r: 255, g: 255, b: 255, alpha: 1 }; // #ffffff — matches the white UI and the logo artwork
 const out = 'public/icons';
 mkdirSync(out, { recursive: true });
 
 const source = ['public/logo-source.png', 'public/logo-source.jpg', 'public/logo-source.jpeg', 'public/logo-source.webp'].find(existsSync);
-const placeholder = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#0b1320"/><circle cx="256" cy="256" r="150" fill="none" stroke="#45a2e5" stroke-width="26"/><path d="M190 332V180l132 152V180" fill="none" stroke="#00d4ff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+const placeholder = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#ffffff"/><circle cx="256" cy="256" r="150" fill="none" stroke="#c4ff74" stroke-width="26"/><path d="M190 332V180l132 152V180" fill="none" stroke="#0b0f07" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
 const input = source ?? placeholder;
 console.log(source ? `Using ${source}` : 'No public/logo-source.* found, generating a placeholder mark.');
 
